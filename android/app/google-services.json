@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "543260060510",
+    "project_id": "newsflow-10196",
+    "storage_bucket": "newsflow-10196.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543260060510:android:21fa4dd8335f4655edbdcf",
+        "android_client_info": {
+          "package_name": "com.andikas.newsflow.newsflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543260060510-rntrj84b8ne37ue7a583tur4c3htr5mo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.andikas.newsflow.newsflow",
+            "certificate_hash": "41a0a04441c6d110d6aebcb13835d079cc538c05"
+          }
+        },
+        {
+          "client_id": "543260060510-dsish8la3qrknnujliovs0r175skcj17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANmx-GSg3yrCuoyV6JM-prT9AhmE9CRNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543260060510-dsish8la3qrknnujliovs0r175skcj17.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "543260060510-2oaih3n00bhk7ubtadfc3rflqfqjfcho.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.andikas.newsflow.newsflow"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
