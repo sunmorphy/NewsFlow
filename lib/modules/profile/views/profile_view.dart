@@ -23,9 +23,13 @@ class ProfileView extends GetView<AuthController> {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: context.theme.colorScheme.primary,
-                    width: 4,
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary,
+                    ],
                   ),
                   boxShadow: [
                     BoxShadow(
