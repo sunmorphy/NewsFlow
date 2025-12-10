@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import '../../utils/constants.dart';
 import 'models/article_response.dart';
 
@@ -15,7 +16,7 @@ class NewsService {
   Future<List<RemoteArticle>> getTopHeadlines({String? category}) async {
     try {
       final Map<String, dynamic> queryParams = {
-        'country': 'id',
+        // 'country': 'id',
         'apiKey': Constants.apiKey,
       };
 

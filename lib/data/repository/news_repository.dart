@@ -18,6 +18,7 @@ class NewsRepository {
 
       final localArticles = remoteArticles.map((remote) {
         return LocalArticle(
+          url: remote.url ?? remote.title ?? DateTime.now().toIso8601String(),
           title: remote.title ?? 'No Title',
           author: remote.source?.name ?? remote.author ?? 'Unknown',
           description: remote.description ?? '',

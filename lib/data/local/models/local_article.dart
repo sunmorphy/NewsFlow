@@ -1,4 +1,7 @@
+import 'dart:core';
+
 class LocalArticle {
+  final String url;
   final String title;
   final String author;
   final String description;
@@ -8,6 +11,7 @@ class LocalArticle {
   final String category;
 
   LocalArticle({
+    required this.url,
     required this.title,
     required this.author,
     required this.description,
@@ -19,6 +23,7 @@ class LocalArticle {
 
   Map<String, dynamic> toMap() {
     return {
+      'url': url,
       'title': title,
       'author': author,
       'description': description,
@@ -31,6 +36,7 @@ class LocalArticle {
 
   factory LocalArticle.fromMap(Map<String, dynamic> map) {
     return LocalArticle(
+      url: map['url'] ?? map['title'] ?? DateTime.now().toIso8601String(),
       title: map['title'] ?? '',
       author: map['author'] ?? '',
       description: map['description'] ?? '',
