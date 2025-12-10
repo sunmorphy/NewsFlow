@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../news/views/news_view.dart';
+import '../../profile/views/profile_view.dart';
 import '../../search/views/search_view.dart';
 import '../controllers/dashboard_controller.dart';
 
@@ -20,7 +21,7 @@ class DashboardView extends StatelessWidget {
             const NewsView(),
             const SearchView(),
             Container(),
-            Container(),
+            const ProfileView(),
           ],
         ),
       ),
