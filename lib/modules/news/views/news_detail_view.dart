@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../data/local/models/local_article.dart';
 import '../../bookmark/controllers/bookmark_controller.dart';
+import '../../chat/views/chat_view.dart';
 
 class NewsDetailView extends StatelessWidget {
   const NewsDetailView({Key? key}) : super(key: key);
@@ -160,6 +161,34 @@ class NewsDetailView extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        onPressed: () {
+          Get.to(() => const ChatView());
+        },
+        shape: CircleBorder(),
+        backgroundColor: Colors.transparent,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Center(child: Icon(Icons.chat_bubble_rounded, color: Colors.white)),
+          ],
+        ),
       ),
     );
   }
