@@ -10,10 +10,14 @@ class NewsRepository {
     : _apiService = apiService ?? NewsService(),
       _dbHelper = dbHelper ?? DatabaseHelper.instance;
 
-  Future<List<LocalArticle>> getNews({String category = 'Latest'}) async {
+  Future<List<LocalArticle>> getNews({
+    String category = 'Latest',
+    String? query,
+  }) async {
     try {
       final remoteArticles = await _apiService.getTopHeadlines(
         category: category,
+        query: query,
       );
 
       final localArticles = remoteArticles.map((remote) {

@@ -13,11 +13,15 @@ class NewsService {
     ),
   );
 
-  Future<List<RemoteArticle>> getTopHeadlines({String? category}) async {
+  Future<List<RemoteArticle>> getTopHeadlines({
+    String? category,
+    String? query,
+  }) async {
     try {
       final Map<String, dynamic> queryParams = {
         // 'country': 'id',
         'apiKey': Constants.apiKey,
+        'q': query,
       };
 
       if (category != null && category.toLowerCase() != 'latest') {

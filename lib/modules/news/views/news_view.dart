@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
+import '../../../widgets/container_gradient.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
 import '../controllers/news_controller.dart';
 import 'widgets/news_card.dart';
 
@@ -12,23 +14,12 @@ class NewsView extends GetView<NewsController> {
   Widget build(BuildContext context) {
     Get.put(NewsController());
 
+    final dashboardController = Get.find<DashboardController>();
+
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  context.theme.colorScheme.primary,
-                  context.theme.colorScheme.secondary,
-                ],
-              ),
-            ),
-          ),
+          ContainerGradient(),
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +39,9 @@ class NewsView extends GetView<NewsController> {
                       ),
                     ),
                     FilledButton(
-                      onPressed: () => {},
+                      onPressed: () {
+                        dashboardController.changeTabIndex(1);
+                      },
                       style: FilledButton.styleFrom(
                         backgroundColor: Colors.transparent,
                       ),
@@ -204,27 +197,6 @@ class NewsView extends GetView<NewsController> {
                 ),
               ),
             ],
-          ),
-        ],
-      ),
-
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: context.theme.colorScheme.primary,
-        unselectedItemColor: context.theme.disabledColor,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_border),
-            label: 'Bookmark',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
           ),
         ],
       ),
