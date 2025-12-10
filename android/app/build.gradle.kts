@@ -11,7 +11,8 @@ plugins {
 android {
     namespace = "com.andikas.newsflow.newsflow"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "25.1.8937393"
+    ndkVersion = flutter.ndkVersion
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
