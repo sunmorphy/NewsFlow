@@ -53,7 +53,7 @@ class ProfileView extends GetView<AuthController> {
               const SizedBox(height: 32),
 
               Text(
-                "Hello, ${user?.displayName?.isEmpty == true ? 'Guest' : user?.displayName}!",
+                "Hello, ${user?.displayName?.isEmpty == true ? 'Guest' : (user?.displayName ?? 'Guest')}!",
                 textAlign: TextAlign.center,
                 style: context.textTheme.headlineLarge?.copyWith(
                   fontWeight: FontWeight.bold,
