@@ -9,7 +9,7 @@ class AppColors {
   static const Color textPrimary = Color(0xFF1A1A1A);
   static const Color textSecondary = Color(0xFF757575);
 
-  static const Color error = Color(0xFFD32F2F);
+  static const Color error = Color(0xFFD13A3A);
 
   static const Gradient mainGradient = LinearGradient(
     begin: Alignment.topCenter,
