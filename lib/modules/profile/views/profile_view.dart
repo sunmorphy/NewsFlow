@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../widgets/primary_button.dart';
 import '../../auth/controllers/auth_controller.dart';
 
 class ProfileView extends GetView<AuthController> {
@@ -78,7 +79,7 @@ class ProfileView extends GetView<AuthController> {
 
               SizedBox(
                 width: double.infinity,
-                child: FilledButton.icon(
+                child: PrimaryButton(
                   onPressed: () {
                     Get.defaultDialog(
                       title: "Logout",
@@ -100,14 +101,13 @@ class ProfileView extends GetView<AuthController> {
                       },
                     );
                   },
-                  style: FilledButton.styleFrom(
-                    backgroundColor: context.theme.colorScheme.error,
-                  ),
-                  icon: const Icon(Icons.logout),
-                  label: const Text(
-                    "Logout",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
+                  icon: Icons.logout,
+                  text: "Logout",
+                  colors: [
+                    context.theme.colorScheme.error.withOpacity(0.8),
+                    context.theme.colorScheme.error,
+                    context.theme.colorScheme.secondary,
+                  ],
                 ),
               ),
               const SizedBox(height: 20),

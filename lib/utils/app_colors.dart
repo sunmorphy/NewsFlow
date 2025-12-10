@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primaryPurple = Color(0xFF8E2DE2);
+  static const Color primaryPurple = Color(0xFF865AF3);
   static const Color primaryOrange = Color(0xFFFF9966);
 
   static const Color background = Colors.white;
@@ -10,10 +10,4 @@ class AppColors {
   static const Color textSecondary = Color(0xFF757575);
 
   static const Color error = Color(0xFFD13A3A);
-
-  static const Gradient mainGradient = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [primaryPurple, primaryOrange],
-  );
 }
