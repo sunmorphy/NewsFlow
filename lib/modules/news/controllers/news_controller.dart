@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../../data/local/models/local_article.dart';
 import '../../../data/repository/news_repository.dart';
 

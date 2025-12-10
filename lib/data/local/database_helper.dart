@@ -1,7 +1,8 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'models/local_article.dart';
+import 'package:sqflite/sqflite.dart';
+
 import 'models/chat_message.dart';
+import 'models/local_article.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
@@ -19,11 +20,7 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _createDB,
-    );
+    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -38,6 +35,19 @@ class DatabaseHelper {
 
     await db.execute('''
     CREATE TABLE articles (
+      url TEXT PRIMARY KEY, 
+      title TEXT,
+      author TEXT,
+      description TEXT,
+      urlToImage TEXT,
+      publishedAt TEXT,
+      content TEXT,
+      category TEXT
+    )
+    ''');
+
+    await db.execute('''
+    CREATE TABLE bookmarks (
       url TEXT PRIMARY KEY, 
       title TEXT,
       author TEXT,
@@ -113,6 +123,36 @@ class DatabaseHelper {
     }
 
     return result.map((json) => LocalArticle.fromMap(json)).toList();
+  }
+
+  Future<void> addBookmark(LocalArticle article) async {
+    final db = await instance.database;
+    await db.insert(
+      'bookmarks',
+      article.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> removeBookmark(String url) async {
+    final db = await instance.database;
+    await db.delete('bookmarks', where: 'url = ?', whereArgs: [url]);
+  }
+
+  Future<List<LocalArticle>> getBookmarks() async {
+    final db = await instance.database;
+    final result = await db.query('bookmarks', orderBy: 'publishedAt DESC');
+    return result.map((json) => LocalArticle.fromMap(json)).toList();
+  }
+
+  Future<bool> isBookmarked(String url) async {
+    final db = await instance.database;
+    final result = await db.query(
+      'bookmarks',
+      where: 'url = ?',
+      whereArgs: [url],
+    );
+    return result.isNotEmpty;
   }
 
   Future<void> insertMessage(ChatMessage message) async {

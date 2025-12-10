@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../bookmark/views/bookmark_view.dart';
 import '../../news/views/news_view.dart';
 import '../../profile/views/profile_view.dart';
 import '../../search/views/search_view.dart';
@@ -20,7 +21,7 @@ class DashboardView extends StatelessWidget {
           children: [
             const NewsView(),
             const SearchView(),
-            Container(),
+            const BookmarkView(),
             const ProfileView(),
           ],
         ),

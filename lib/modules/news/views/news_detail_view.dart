@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../data/local/models/local_article.dart';
+import '../../bookmark/controllers/bookmark_controller.dart';
 
 class NewsDetailView extends StatelessWidget {
   const NewsDetailView({Key? key}) : super(key: key);
@@ -11,6 +12,13 @@ class NewsDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LocalArticle article = Get.arguments as LocalArticle;
+
+    final bookmarkController = Get.put(BookmarkController());
+
+    final isBookmarked = false.obs;
+    bookmarkController.checkBookmarkStatus(article.url).then((value) {
+      isBookmarked.value = value;
+    });
 
     return Scaffold(
       body: Stack(
@@ -136,12 +144,17 @@ class NewsDetailView extends StatelessWidget {
                   icon: Icons.arrow_back,
                   onTap: () => Get.back(),
                 ),
-                _buildCircleButton(
-                  context,
-                  icon: Icons.bookmark_border,
-                  onTap: () {
-                    Get.snackbar("Bookmark", "Article saved to bookmarks!");
-                  },
+                Obx(
+                  () => _buildCircleButton(
+                    context,
+                    icon: isBookmarked.value
+                        ? Icons.bookmark
+                        : Icons.bookmark_border,
+                    onTap: () async {
+                      await bookmarkController.toggleBookmark(article);
+                      isBookmarked.value = !isBookmarked.value;
+                    },
+                  ),
                 ),
               ],
             ),
