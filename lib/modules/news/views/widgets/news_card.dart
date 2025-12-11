@@ -7,7 +7,11 @@ class NewsCard extends StatelessWidget {
   final LocalArticle article;
   final VoidCallback onTap;
 
-  const NewsCard({super.key, required this.article, required this.onTap});
+  const NewsCard({
+    super.key = const Key('news_card'),
+    required this.article,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {

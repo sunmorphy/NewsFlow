@@ -142,12 +142,14 @@ class NewsDetailView extends StatelessWidget {
               children: [
                 _buildCircleButton(
                   context,
+                  key: Key('back_button'),
                   icon: Icons.arrow_back,
                   onTap: () => Get.back(),
                 ),
                 Obx(
                   () => _buildCircleButton(
                     context,
+                    key: Key('bookmark_button'),
                     icon: isBookmarked.value
                         ? Icons.bookmark
                         : Icons.bookmark_border,
@@ -195,10 +197,12 @@ class NewsDetailView extends StatelessWidget {
 
   Widget _buildCircleButton(
     BuildContext context, {
+    required Key key,
     required IconData icon,
     required VoidCallback onTap,
   }) {
     return GestureDetector(
+      key: key,
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(10),
