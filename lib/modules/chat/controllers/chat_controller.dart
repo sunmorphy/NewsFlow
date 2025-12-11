@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../common/env.dart';
 import '../../../data/local/database_helper.dart';
 import '../../../data/local/models/chat_message.dart';
 
@@ -11,11 +13,34 @@ class ChatController extends GetxController {
   final ScrollController scrollController = ScrollController();
   final ImagePicker _picker = ImagePicker();
 
+  late final GenerativeModel _model;
+  final _apiKey = Env.geminiApiKay;
+
   var messages = <ChatMessage>[].obs;
+  var isTyping = false.obs;
+
+  String? currentArticleContext;
 
   @override
   void onInit() {
     super.onInit();
+
+    if (Get.arguments != null && Get.arguments is String) {
+      currentArticleContext = Get.arguments;
+    }
+
+    final systemPrompt = Content.system(
+      "You are a helpful, polite, and professional Customer Support Agent for a news application called 'Newsflow'. "
+      "${currentArticleContext != null ? 'The user is currently reading this article: "$currentArticleContext". Answer questions related to this article if asked.' : ''}"
+      "Your goal is to assist users with reading news, account issues, and app navigation. "
+      "Keep your answers concise and friendly. If you don't know the answer, ask the user for more details.",
+    );
+
+    _model = GenerativeModel(
+      model: 'gemini-2.5-flash',
+      apiKey: _apiKey,
+      systemInstruction: systemPrompt,
+    );
     loadChatHistory();
   }
 
@@ -41,24 +66,35 @@ class ChatController extends GetxController {
       isSender: 1,
       timestamp: DateTime.now().toIso8601String(),
     );
-
     _addMessage(userMsg);
     textController.clear();
 
-    _simulateBotReply();
+    await _generateGeminiResponse(text);
   }
 
-  void sendImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      final userMsg = ChatMessage(
-        text: "Sent an image",
-        imagePath: image.path,
-        isSender: 1,
+  Future<void> _generateGeminiResponse(String prompt) async {
+    try {
+      isTyping.value = true;
+
+      final content = [Content.text(prompt)];
+      final response = await _model.generateContent(content);
+      final botText = response.text ?? "I'm sorry, I couldn't understand that.";
+
+      final botMsg = ChatMessage(
+        text: botText,
+        isSender: 0,
         timestamp: DateTime.now().toIso8601String(),
       );
-      _addMessage(userMsg);
-      _simulateBotReply();
+      _addMessage(botMsg);
+    } catch (e) {
+      final errorMsg = ChatMessage(
+        text: "Error: Unable to connect to AI server.",
+        isSender: 0,
+        timestamp: DateTime.now().toIso8601String(),
+      );
+      _addMessage(errorMsg);
+    } finally {
+      isTyping.value = false;
     }
   }
 

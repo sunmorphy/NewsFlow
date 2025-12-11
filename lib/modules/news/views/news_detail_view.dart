@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../data/local/models/local_article.dart';
+import '../../../routes/app_pages.dart';
 import '../../bookmark/controllers/bookmark_controller.dart';
 import '../../chat/views/chat_view.dart';
 
@@ -165,7 +166,13 @@ class NewsDetailView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         onPressed: () {
-          Get.to(() => const ChatView());
+          final articleContext =
+              """
+          Title: ${article.title}
+          Author: ${article.author}
+          Content: ${article.content.isNotEmpty ? article.content : article.description}
+          """;
+          Get.toNamed(Routes.CHAT, arguments: articleContext);
         },
         shape: CircleBorder(),
         backgroundColor: Colors.transparent,

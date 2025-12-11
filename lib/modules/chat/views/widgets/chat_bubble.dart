@@ -59,7 +59,7 @@ class ChatBubble extends StatelessWidget {
                 ),
               ),
 
-            if (message.text.isNotEmpty && message.text != "Sent an image")
+            if (message.text.isNotEmpty)
               Text(
                 message.text,
                 style: context.textTheme.bodyMedium?.copyWith(
